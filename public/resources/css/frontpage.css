@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root
+{
+    --primary-color: #6A041D;
+    --secondary-color: #53FF45;
+    --logo-color: #F4FF52;
+    --extra-color: #F5B841;
+    --biggest-font: 128px;
+    --mid-font: 80px;
+    --small-font: 30px;
+    --logo-font: 8px;
+    --default-font: 'Inter', sans-serif;
+}
+
+.col53FF45
+{
+    color: var(--secondary-color);
+}
+
+.colF4FF52
+{
+    color: var(--logo-color);
+}
+
+.colF5B841
+{
+    color: #F5B841 !important;
+}
+
+.bg-col6A041D
+{
+    background-color: var(--primary-color);
+}
+
+.bg-colF5B841
+{
+    background-color: #F5B841 !important;
+    color: white !important;
+}
+
+.v-space-1
+{
+    line-height: 1;
+}
+
+.mid-font-size
+{
+    font-size: var(--mid-font);
+}
+
+.small-font
+{
+    font-size: var(--small-font);
+}
+
+.bold-font
+{
+    font-weight: bold !important;
+}
+
+.center
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.brand
+{
+    gap: 10px;
+}
+
+.brand .logo
+{
+    font-size: var(--logo-font);
+    background-color: var(--logo-color);
+    height: 57px;
+    width: 57px;
+    border-radius: 50px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.text-justify
+{
+    text-align: justify;
+}
+
+.test-border
+{
+    border: 1px solid red;
+}
