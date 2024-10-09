@@ -34,31 +34,65 @@
         </div>
         <button class="bold-font bg-colF5B841 btn">Join Now</button>
 
-        <div class="p-5">
-            <div class="center">
-                <p class="small-font bold-font">With <span class="col53FF45">CodeLaborate</span>, users can:</p>
-            </div>
-            <div class="test-border">
-                <div>
-                    <div>
-                        <i class="fa-solid fa-clock"></i>
+        <div class="p-5 center">
+            <p class="small-font bold-font">With <span class="col53FF45">CodeLaborate</span>, users can:</p>
+        </div>
+
+        <div class="center">
+            <div class="wrap-div center justify-content-between">
+                <div class="box">
+                    <div class="center col6A041D">
+                        <i class="fa-solid fa-clock small-font"></i>
                     </div>
-                    <div class="test-border">
-                        <p class="bold-font">
-                            Real-time Collaboration
+                    <div>
+                        <p class="bold-font text-center extra-small-font">
+                            Real-time<br>Collaboration
                         </p>
                     </div>
-                    <div>
+                    <div class="text-center extra-small-font">
                         <p>
                             Work together on coding projects and assignments across different disciplines
                         </p>
                     </div>
                 </div>
-                <div></div>
-                <div></div>
+
+                <div class="box">
+                    <div class="center col6A041D">
+                        <i class="fa-solid fa-share-from-square small-font"></i>
+                    </div>
+                    <div>
+                        <p class="bold-font text-center extra-small-font">
+                            Code Sharing &<br>Feedback
+                        </p>
+                    </div>
+                    <div class="text-center extra-small-font">
+                        <p>
+                            Share code, give feedback, and troubleshoot with peers.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="center col6A041D">
+                        <i class="fa-solid fa-list-check small-font"></i>
+                    </div>
+                    <div>
+                        <p class="bold-font text-center extra-small-font">
+                        Coding Challenges &<br>Hackathons
+                        </p>
+                    </div>
+                    <div class="text-center extra-small-font">
+                        <p>
+                            Organize team-based coding events to improve skills.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
      </div>
+
+    <!-- middle content -->
+     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

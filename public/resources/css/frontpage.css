@@ -9,8 +9,14 @@
     --biggest-font: 128px;
     --mid-font: 80px;
     --small-font: 30px;
+    --extra-small-font: 15px;
     --logo-font: 8px;
     --default-font: 'Inter', sans-serif;
+}
+
+.col6A041D
+{
+    color: var(--primary-color);
 }
 
 .col53FF45
@@ -54,6 +60,11 @@
     font-size: var(--small-font);
 }
 
+.extra-small-font
+{
+    font-size: var(--extra-small-font);
+}
+
 .bold-font
 {
     font-weight: bold !important;
@@ -85,6 +96,22 @@
 .text-justify
 {
     text-align: justify;
+}
+
+.text-center
+{
+    text-align: center;
+}
+
+.wrap-div
+{
+    width: 1000px;
+}
+
+.box
+{
+    width: 200px;
+    height: 200px;
 }
 
 .test-border
