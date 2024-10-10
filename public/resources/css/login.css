@@ -43,7 +43,7 @@
 
 .colWhite
 {
-    color: white;
+    color: white !important;
 }
 
 .bg-col6A041D
@@ -55,6 +55,11 @@
 {
     background-color: #F5B841 !important;
     color: white !important;
+}
+
+.bg-white
+{
+    background-color: white;
 }
 
 .v-space-1

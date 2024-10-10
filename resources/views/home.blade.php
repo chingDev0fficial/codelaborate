@@ -8,5 +8,11 @@
 <body>
     <h1>{{ $name }}</h1>
     <img src="{{ $profile_picture }}" alt="">
+    <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit" class="btn">
+            Logout
+        </button>
+    </form>
 </body>
 </html>

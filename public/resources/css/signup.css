@@ -57,6 +57,11 @@
     color: white !important;
 }
 
+.bg-white
+{
+    background-color: white;
+}
+
 .v-space-1
 {
     line-height: 1;

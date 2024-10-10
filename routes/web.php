@@ -14,16 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('frontpage');
-});
+Route::get('/', [UserController::class, 'front_page'])->name('/');
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/signup', [UserController::class, 'signup_page'])->name('signup');
 
-Route::get('/signup', function () {
-    return view('signup');
-});
+Route::get('/login', [UserController::class, 'login_page'])->name('login');
+
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::post('/home', [UserController::class, 'login'])->name('submit.login');
+
+Route::post('/signup', [UserController::class, 'signup'])->name('submit.signup')->middleware('auth');
