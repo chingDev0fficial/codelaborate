@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\User;
-use App\Http\Controllers\Log;
-use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -14,6 +11,7 @@ class UserController extends Controller
 {
     public function signup(Request $request)
     {
+        \Log::info('Signup request data', $request->all());
         // Validate the form input
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -27,39 +25,64 @@ class UserController extends Controller
             'profile-pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        echo "<script>console.log('PHP Value: " . $validatedData['name'] . "');</script>";
-        
+        dd($validatedData);
+    
+        // Combine the year, month, and day into a birthdate
+        // $birthdate = $validatedData['year'] . '-' . $validatedData['month'] . '-' . $validatedData['day'];
+    
+        // // Handle file upload for profile picture
+        // $profilePicPath = null;
+        // if ($request->hasFile('profile-pic')) {
+        //     $profilePicPath = $request->file('profile-pic')->store('profile-pics', 'public');
+        // }
+    
+        // // Insert the user into the database
+        // try {
+        //     User::create([
+        //         'name' => $validatedData['name'],
+        //         'email' => $validatedData['email'],
+        //         'password' => Hash::make($validatedData['password']),
+        //         'birthday' => $birthdate,
+        //         'sex' => $validatedData['sex'],
+        //         'occupation' => $validatedData['occupation'],
+        //         'profile_picture' => $profilePicPath,
+        //     ]);
+    
+        //     // Redirect to login page after successful signup
+        //     return redirect()->route('login')->with('success', 'Account created successfully. Please log in.');
+        // } catch (\Exception $e) {
+        //     // Log the error message
+        //     \Log::error('Signup error: ' . $e->getMessage());
+    
+        //     // Return back with an error message
+        //     return back()->withErrors(['error' => 'There was a problem creating your account. Please try again.']);
+        // }
     }
 
-
-    public function login()
+    public function login(Request $request)
     {
-        $validatedData = request()->validate([
-            "email"=> "required|email",
-            "password"=> "required|string",
+        $validatedData = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
         ]);
 
-        $email = $validatedData["email"];
-        $password = $validatedData["password"];
+        $email = $validatedData['email'];
+        $password = $validatedData['password'];
 
         $user = User::where('email', $email)->first();
 
-        if($user && $password == $user->password)
-        {
+        // Use Hash::check for password verification
+        if ($user && Hash::check($password, $user->password)) {
             Auth::login($user);
 
-            global $userID;
-            $userID = $user->id;
-
+            // Optionally, store user ID in session or directly pass it to the view
             $data = [
-                "name" => $user->name,
-                "profile_picture" => $user->profile_picture
+                'name' => $user->name,
+                'profile_picture' => $user->profile_pic,  // Fixed to use correct property
             ];
 
             return view('home', $data);
-        }
-        else
-        {
+        } else {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
     }
@@ -79,6 +102,11 @@ class UserController extends Controller
         return view('frontpage');
     }
 
+    public function home_page()
+    {
+        return view('home');
+    }
+
     public function logout(Request $request)
     {
         Auth::logout(); // Logs the user out
@@ -87,6 +115,6 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
+        return redirect()->route('login')->with('success', 'You have been logged out successfully.');
     }
 }

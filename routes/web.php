@@ -14,14 +14,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Home page
 Route::get('/', [UserController::class, 'front_page'])->name('/');
 
+// Show the signup page (GET request)
 Route::get('/signup', [UserController::class, 'signup_page'])->name('signup');
 
+// Handle the signup form submission (POST request)
+Route::post('/signup', [UserController::class, 'signup'])->name('submit.signup'); 
+
+// Show the login page (GET request)
 Route::get('/login', [UserController::class, 'login_page'])->name('login');
 
+// Handle the login form submission (POST request)
+Route::post('/login', [UserController::class, 'login'])->name('submit.login'); 
+
+// Logout route
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
-Route::post('/home', [UserController::class, 'login'])->name('submit.login');
+// Home page after login
+Route::get('/home', [UserController::class, 'home'])->name('home'); 
 
-Route::post('/signup', [UserController::class, 'signup'])->name('submit.signup')->middleware('auth');
