@@ -11,7 +11,6 @@ class UserController extends Controller
 {
     public function signup(Request $request)
     {
-        \Log::info('Signup request data', $request->all());
         // Validate the form input
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -61,7 +60,7 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $validatedData = $request->validate([
+        $validatedData = $request->validate([ 
             'email' => 'required|email',
             'password' => 'required|string',
         ]);
