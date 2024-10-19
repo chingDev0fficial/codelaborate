@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>{{ $name }}</h1>
-    <img src="{{ $profile_picture }}" alt="">
+    <img src="{{ asset('storage/' . $profile_picture) }}" alt="Profile" style="height: 100px; width:100px;">
     <form action="{{ route('logout') }}" method="POST">
         @csrf
         <button type="submit" class="btn">

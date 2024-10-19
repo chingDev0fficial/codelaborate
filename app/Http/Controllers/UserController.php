@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -12,50 +13,52 @@ class UserController extends Controller
     public function signup(Request $request)
     {
         // Validate the form input
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'year' => 'required|integer|min:1900|max:' . date('Y'),
-            'month' => 'required|integer|between:1,12',
-            'day' => 'required|integer|between:1,31',
-            'sex' => 'required|string|in:male,female',
-            'occupation' => 'required|string|max:255',
-            'password' => 'required|string|confirmed|min:8',
-            'profile-pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        dd($validatedData);
+        try
+        {
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email',
+                'birthday' => 'required|date|before:today',
+                'sex' => 'required|in:male,female',
+                'occupation' => 'required|string|max:255',
+                'password' => 'required|string|confirmed|min:8',
+                'profile-pic' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
+            // dd($validatedData);
+        }
+        catch (\Illuminate\Validation\ValidationException $e)
+        {
+            // Handle the validation error
+            return back()->withErrors($e->errors())->withInput();
+        }
     
-        // Combine the year, month, and day into a birthdate
-        // $birthdate = $validatedData['year'] . '-' . $validatedData['month'] . '-' . $validatedData['day'];
+        // Handle file upload for profile picture
+        $profilePicPath = null;
+        if ($request->hasFile('profile-pic')) {
+            $profilePicPath = $request->file('profile-pic')->store('profile-pics', 'public');
+        }
     
-        // // Handle file upload for profile picture
-        // $profilePicPath = null;
-        // if ($request->hasFile('profile-pic')) {
-        //     $profilePicPath = $request->file('profile-pic')->store('profile-pics', 'public');
-        // }
+        // Insert the user into the database
+        try {
+            User::create([
+                'name' => $validatedData['name'],
+                'email' => $validatedData['email'],
+                'password' => Hash::make($validatedData['password']),
+                'birthday' => $validatedData['birthday'],
+                'sex' => $validatedData['sex'],
+                'occupation' => $validatedData['occupation'],
+                'profile_picture' => $profilePicPath,
+            ]);
     
-        // // Insert the user into the database
-        // try {
-        //     User::create([
-        //         'name' => $validatedData['name'],
-        //         'email' => $validatedData['email'],
-        //         'password' => Hash::make($validatedData['password']),
-        //         'birthday' => $birthdate,
-        //         'sex' => $validatedData['sex'],
-        //         'occupation' => $validatedData['occupation'],
-        //         'profile_picture' => $profilePicPath,
-        //     ]);
+            // Redirect to login page after successful signup
+            return redirect()->route('login')->with('success', 'Account created successfully. Please log in.');
+        } catch (Exception $e) {
+            // Log the error message
+            \Log::error('Signup error: ' . $e->getMessage());
     
-        //     // Redirect to login page after successful signup
-        //     return redirect()->route('login')->with('success', 'Account created successfully. Please log in.');
-        // } catch (\Exception $e) {
-        //     // Log the error message
-        //     \Log::error('Signup error: ' . $e->getMessage());
-    
-        //     // Return back with an error message
-        //     return back()->withErrors(['error' => 'There was a problem creating your account. Please try again.']);
-        // }
+            // Return back with an error message
+            return back()->withErrors(['error' => 'There was a problem creating your account. Please try again.']);
+        }
     }
 
     public function login(Request $request)
@@ -77,8 +80,10 @@ class UserController extends Controller
             // Optionally, store user ID in session or directly pass it to the view
             $data = [
                 'name' => $user->name,
-                'profile_picture' => $user->profile_pic,  // Fixed to use correct property
+                'profile_picture' => $user->profile_picture,  // Fixed to use correct property
             ];
+
+            // dd($data);
 
             return view('home', $data);
         } else {

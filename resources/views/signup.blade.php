@@ -19,7 +19,7 @@
                     <div class="card-body">
                         <h2 class="text-center">Sign up<br><span class="bold-font col53FF45">CodeLaborate</span></h2>
                         
-                        <form action="{{ route('submit.signup') }}" method="POST">
+                        <form action="{{ route('submit.signup') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="name" class="form-label">Full Name</label>
@@ -31,11 +31,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="birthday" class="form-label">Birthday</label>
-                                <div class="d-flex" name="birthday">
-                                    <input type="text" name="year" class="form-control" placeholder="YYYY" required>
-                                    <input type="text" name="month" class="form-control" placeholder="MM" required>
-                                    <input type="text" name="day" class="form-control" placeholder="DD" required>
-                                </div>
+                                <input type="date" name="birthday" class="form-control" required>
                             </div>
                             <div class="mb-3">
                                 <label for="sex" class="form-label">Sex</label>
@@ -59,16 +55,27 @@
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" name="password" class="form-control" required>
+                                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" required>
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="confirm_password" class="form-label">Confirm Password</label>
-                                <input type="password" name="confirm_password" class="form-control" required>
+                                <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" required>
+                                @error('password_confirmation')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="profile-pic" class="form-label">Profile picture</label>
                                 <input type="file" class="form-control" name="profile-pic">
                             </div>
+
                             <div class="d-grid mb-3">
                                 <button type="submit" class="btn colWhite bg-col6A041D" style="width: 100%;">Sign up</button>
                             </div>

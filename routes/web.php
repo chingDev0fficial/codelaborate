@@ -27,11 +27,10 @@ Route::post('/signup', [UserController::class, 'signup'])->name('submit.signup')
 Route::get('/login', [UserController::class, 'login_page'])->name('login');
 
 // Handle the login form submission (POST request)
-Route::post('/login', [UserController::class, 'login'])->name('submit.login'); 
+Route::post('/home', [UserController::class, 'login'])->name('submit.login'); 
 
 // Logout route
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 // Home page after login
-Route::get('/home', [UserController::class, 'home'])->name('home'); 
-
+// Route::get('/home', [UserController::class, 'home_page'])->name('home'); 
