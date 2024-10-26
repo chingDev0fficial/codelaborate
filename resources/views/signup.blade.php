@@ -18,29 +18,41 @@
                 <div class="card mt-5">
                     <div class="card-body">
                         <h2 class="text-center">Sign up<br><span class="bold-font col53FF45">CodeLaborate</span></h2>
+
+                        @if(count($errors) > 0)
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul>
+                                        @foreach($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
                         
                         <form action="{{ route('submit.signup') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="name" class="form-label">Full Name</label>
-                                <input type="text" name="name" class="form-control" required>
+                                <input type="text" name="name" class="form-control" value="{{ Request::old('name') }}" required>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" name="email" class="form-control" placeholder="juan@example.com" required>
+                                <input type="email" name="email" class="form-control" placeholder="juan@example.com" value="{{ Request::old('email') }}" required>
                             </div>
                             <div class="mb-3">
                                 <label for="birthday" class="form-label">Birthday</label>
-                                <input type="date" name="birthday" class="form-control" required>
+                                <input type="date" name="birthday" class="form-control" value="{{ Request::old('birthday') }}" required>
                             </div>
                             <div class="mb-3">
                                 <label for="sex" class="form-label">Sex</label>
                                 <div class="form-control" style="height: auto !important;">
                                     <div>
-                                        <input type="radio" name="sex" value="male" required> Male
+                                        <input type="radio" name="sex" value="male" value="{{ Request::old('sex') }}" required> Male
                                     </div>
                                     <div>
-                                        <input type="radio" name="sex" value="female" required> Female
+                                        <input type="radio" name="sex" value="female" value="{{ Request::old('sex') }}" required> Female
                                     </div>
                                 </div>
                             </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,4 +34,8 @@ Route::post('/home', [UserController::class, 'login'])->name('submit.login');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 // Home page after login
-// Route::get('/home', [UserController::class, 'home_page'])->name('home'); 
+Route::get('/home', [UserController::class, 'home_page'])->name('home');
+
+Route::post('/post', [PostController::class, 'postCreatePost'])->name('post.create');
+
+Route::get('/fetch-data', [PostController::class, 'fetchData'])->name('fetch.posts');

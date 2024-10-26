@@ -51,7 +51,7 @@ class UserController extends Controller
             ]);
     
             // Redirect to login page after successful signup
-            return redirect()->route('login')->with('success', 'Account created successfully. Please log in.');
+            return redirect()->route('login');
         } catch (Exception $e) {
             // Log the error message
             \Log::error('Signup error: ' . $e->getMessage());
@@ -72,20 +72,26 @@ class UserController extends Controller
         $password = $validatedData['password'];
 
         $user = User::where('email', $email)->first();
-
+        
         // Use Hash::check for password verification
         if ($user && Hash::check($password, $user->password)) {
             Auth::login($user);
 
             // Optionally, store user ID in session or directly pass it to the view
             $data = [
+                'id' => $user->id,
                 'name' => $user->name,
+                'email' => $user->email,
+                'birthday' => $user->birthday,
+                'sex' => $user->sex,
+                'occupation' => $user->occupation,
                 'profile_picture' => $user->profile_picture,  // Fixed to use correct property
             ];
 
-            // dd($data);
+            session($data);
 
-            return view('home', $data);
+            // return view('home', $data);
+            return redirect()->route('home');
         } else {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }

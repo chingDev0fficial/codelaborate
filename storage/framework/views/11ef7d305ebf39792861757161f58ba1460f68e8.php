@@ -18,29 +18,41 @@
                 <div class="card mt-5">
                     <div class="card-body">
                         <h2 class="text-center">Sign up<br><span class="bold-font col53FF45">CodeLaborate</span></h2>
+
+                        <?php if(count($errors) > 0): ?>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul>
+                                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <li><?php echo e($error); ?></li>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                         
                         <form action="<?php echo e(route('submit.signup')); ?>" method="POST" enctype="multipart/form-data">
                             <?php echo csrf_field(); ?>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Full Name</label>
-                                <input type="text" name="name" class="form-control" required>
+                                <input type="text" name="name" class="form-control" value="<?php echo e(Request::old('name')); ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" name="email" class="form-control" placeholder="juan@example.com" required>
+                                <input type="email" name="email" class="form-control" placeholder="juan@example.com" value="<?php echo e(Request::old('email')); ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label for="birthday" class="form-label">Birthday</label>
-                                <input type="date" name="birthday" class="form-control" required>
+                                <input type="date" name="birthday" class="form-control" value="<?php echo e(Request::old('birthday')); ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label for="sex" class="form-label">Sex</label>
                                 <div class="form-control" style="height: auto !important;">
                                     <div>
-                                        <input type="radio" name="sex" value="male" required> Male
+                                        <input type="radio" name="sex" value="male" value="<?php echo e(Request::old('sex')); ?>" required> Male
                                     </div>
                                     <div>
-                                        <input type="radio" name="sex" value="female" required> Female
+                                        <input type="radio" name="sex" value="female" value="<?php echo e(Request::old('sex')); ?>" required> Female
                                     </div>
                                 </div>
                             </div>

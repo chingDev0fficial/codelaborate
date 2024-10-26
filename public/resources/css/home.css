@@ -12,8 +12,63 @@
     --mid-font: 4.17vw;     /* 80px */
     --small-font: 1.56vw;   /* 30px */
     --extra-small-font: 0.78vw; /* 15px */
-    --logo-font: 0.42vw;    /* 8px */
+    --logo-font: 8px;    /* 0.42vw */
     --default-font: 'Inter', sans-serif;
+}
+
+*
+{
+    padding: 0;
+    list-style: none;
+}
+
+.vertical-scroll {
+    max-height: 100vh; /* Restricts the content height to the viewport */
+    overflow-y: auto;  /* Enables vertical scrolling */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+  }
+
+.gap
+{
+    margin-bottom: 5px;
+}
+
+.img-post-size
+{
+    width: 30.42vw;
+    height: 50.42vh;
+}
+
+.sticky
+{
+    position: sticky;
+}
+
+.profile-pic
+{
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    border: solid var(--primary-color) 3px
+}
+
+.container {
+    display: grid;
+    /* grid-template-columns: 1fr; Single column layout */
+    gap: 10px; /* Space between items */
+}
+
+.content-width
+{
+    width: 100%;
+}
+
+.container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px; /* Set the height of the container */
 }
 
 .main-bg-color
@@ -51,9 +106,19 @@
     color: white;
 }
 
+.bg-transparent
+{
+    background-color: transparent;
+}
+
 .bg-col6A041D
 {
-    background-color: var(--primary-color);
+    background-color: var(--primary-color) !important;
+}
+
+.bg-col53FF45
+{
+    background-color: #53FF45;
 }
 
 .bg-colF5B841
@@ -70,6 +135,11 @@
 .v-space-1
 {
     line-height: 1;
+}
+
+.v-space-3
+{
+    line-height: 3;
 }
 
 .big-font-size
@@ -115,8 +185,8 @@
     background-color: var(--logo-color);
 
     /* Converting dimensions to vh/vw */
-    height: 57px;  /* 57px */
-    width: 57px;   /* 57px */
+    height: 87px;  /* 57px */
+    width: 87px;   /* 57px */
     border-radius: 50px;
     font-weight: bold;
     color: var(--primary-color);
@@ -141,6 +211,18 @@
 {
     width: 10.42vw;  /* 200px */
     height: 18.52vh; /* 200px */
+}
+
+.left-nav
+{
+    width: 200px;  /* 10.42vw */
+    height: 100vh; /* 200px */
+}
+
+.top-nav
+{
+    width: 100vw;
+    height: 8.42vh;
 }
 
 .test-border
