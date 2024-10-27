@@ -38,4 +38,6 @@ Route::get('/home', [UserController::class, 'home_page'])->name('home');
 
 Route::post('/post', [PostController::class, 'postCreatePost'])->name('post.create');
 
-Route::get('/fetch-data', [PostController::class, 'fetchData'])->name('fetch.posts');
+Route::get('/fetch-data', [PostController::class, 'fetchPosts']);
+
+Route::get('/post/{post}/comments', [PostController::class, 'fetchComments']);
