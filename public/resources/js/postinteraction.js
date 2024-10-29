@@ -38,7 +38,7 @@ function comment_card(response) {
                         </div>
                     </div>
 
-                    <div class="scrollable p-3">
+                    <div class="scrollable pl-3 pr-3 pb-3">
                         <div>
                             <div class="d-flex align-items-center">
                                 <img class="profile-pic mr-1" src="http://127.0.0.1:8000/storage/${creator.profile_picture}" alt="">
