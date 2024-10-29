@@ -31,7 +31,7 @@
 {
     width: 100vw;
     height: 100vh;
-    background-color: rgba(255, 255, 255, 0.80);
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 .vertical-scroll {
@@ -67,7 +67,6 @@
 .post
 {
     width:60%
-    
 }
 
 .round-btn
@@ -85,7 +84,7 @@
 
 .img-post-size
 {
-    width: 30.42vw;
+    width: 40.42vw;
     height: 50.42vh;
 }
 
@@ -124,10 +123,11 @@
 .comment-card
 {
     /* width: 800px; */
-    width: auto;
+    width: 100vh;
     height: 70.07vh; /* = 800px */
     /* height: auto; */
-    border: 1px solid var(--primary-color);
+    /* border: 1px solid var(--primary-color); */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .main-bg-color
@@ -275,6 +275,7 @@
 {
     width: 10.42vw;  /* 200px */
     height: 18.52vh; /* 200px */
+    z-index: 3;
 }
 
 .left-nav
@@ -287,6 +288,19 @@
 {
     width: 100vw;
     height: 8.42vh;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.right-nav
+{
+    position: sticky;
+    top: 60px; /* Matches the height of the nav bar */
+    height: auto; /* Allows height to adjust to content */
+    max-height: calc(100vh - 60px); /* Limits height to viewport minus nav height */
+    width: 350px; /* Keep width as specified */
+    overflow-y: auto; /* Enables internal scrolling */
+    padding: 10px;
+    z-index: 1;
 }
 
 .test-border
@@ -311,6 +325,19 @@
     gap: 0.104vw;
 }
 
+
+.post-options {
+    display: none;
+    position: absolute;
+    left: -175px;
+    width: 200px !important;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    padding: 5px;
+}
+
 .my-img
 {
     height: 17.59vh; /* Height in vh */
@@ -326,11 +353,6 @@
     border-radius: 100%;
     color: white;
     background-color: var(--primary-color);
-}
-
-.japan-vibes {
-    filter: brightness(110%) contrast(90%) sepia(20%) saturate(120%) hue-rotate(-10deg);
-    transition: filter 0.3s; /* Smooth transition effect */
 }
 
 .footer-bg-color

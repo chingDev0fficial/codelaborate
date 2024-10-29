@@ -8,20 +8,22 @@ function fetchData() {
             const currentUserId = data.currentUserId;
             const posts = data.post;
 
+            posts.reverse();
+
+            // Format the date as desired
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit'
+            };
+
             // Loop through the data and append it to the table
             posts.forEach(function(item) {
                 // Create a Date object
                 const date = new Date(item.created_at);
-
-                // Format the date as desired
-                const options = { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric', 
-                    hour: '2-digit', 
-                    minute: '2-digit', 
-                    second: '2-digit'
-                };
 
                 const formattedDate = date.toLocaleString('en-US', options);
                 
@@ -34,14 +36,29 @@ function fetchData() {
                                         <p style="margin: 0; margin-right: 5px;"><strong>${item.user.name}</strong></br><i>${formattedDate}</i></p>
                                     </div>
                                     
-                                    ${item.user_id == currentUserId ? `
-                                    <button class="btn round-btn center">
-                                        <i class="fa-solid fa-bars"></i>
-                                    </button>` : ''}
+                                    <div class="relative">
+                                        <button class="btn round-btn center post-option-btn mb-2">
+                                            <i class="fas fa-ellipsis-h"></i>
+                                        </button>
+                                        <div class="post-options p-2 rounded">
+                                            ${item.user_id == currentUserId ? `
+                                                <button class="btn mb-1 bg-col6A041D colWhite bold-font edit-btn" style="width:100%;"><i class="fa-solid fa-pen-to-square"></i> Edit Post</button>
+                                                <form action="#" method="POST">
+                                                    <button type="submit" class="btn mb-1 bg-col6A041D colWhite bold-font delete-btn" style="width:100%;"><i class="fa-solid fa-trash"></i> Delete Post</button>
+                                                </form>
+                                            ` : `
+                                                <button class="btn mb-1 bg-col6A041D colWhite bold-font edit-btn" style="width:100%;"><i class="fa-solid fa-floppy-disk"></i> Save Post</button>
+                                                <form action="#" method="POST">
+                                                    <button type="submit" class="btn mb-1 bg-col6A041D colWhite bold-font delete-btn" style="width:100%;"><i class="fa-solid fa-eye-slash"></i> Hide Post</button>
+                                                </form>
+                                                <button type="submit" class="btn bg-col6A041D colWhite bold-font report-btn" style="width:100%;"><i class="fa-solid fa-bug"></i> report Post</button>
+                                            `}
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="d-flex">
-                                    <div style="width:60%;">
+                                    <div style="width:40%;">
                                         <div class="p-3 caption">
                                             ${item.body}
                                         </div>
@@ -52,7 +69,7 @@ function fetchData() {
                                         </div>
                                     </div>
 
-                                    <div>
+                                    <div class="btn comment-btn">
                                         <img class="img-post-size rounded" src="http://127.0.0.1:8000/storage/${item.image}" alt="">
                                     </div>
                                 </div>

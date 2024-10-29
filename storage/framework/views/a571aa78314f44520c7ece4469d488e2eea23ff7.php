@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/f4d60c73af.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="<?php echo e(asset('resources/css/home.css')); ?>">
-    <title>Document</title>
+    <title>SNSU Codelaborate</title>
 </head>
 <body>
 
-    <div id="comment-body"></div>
+    <div class="sticky-top" id="comment-body" style="z-index: 10;"></div>
 
     <div class="d-flex">
         <nav class="left-nav bg-col6A041D">
@@ -45,7 +46,8 @@
 
         <div class="main-bg-color content-width vertical-scroll" id="news-feed">
             <!-- content -->
-            <nav class="sticky-top bg-white d-flex justify-content-between align-items-center p-2 mb-3 z-1">
+            
+            <nav class="sticky-top bg-white d-flex justify-content-between align-items-center p-2 mb-3" style="z-index: 4;">
                 <h1>Home</h1>
                 <div class="center">
                     <p class="bold-font" style="margin: 0; margin-right: 5px;"><?php echo e(session("name")); ?></p>
@@ -53,17 +55,41 @@
                 </div>
             </nav>
 
-            <div class="p-5" id="post-container">
-                <!-- ..... -->
-                <div class="p-3 mb-3 bg-white rounded">
-                    <form action="<?php echo e(route('post.create')); ?>" method="POST" enctype="multipart/form-data">
-                        <?php echo csrf_field(); ?>
-                        <textarea class="gap rounded form-control" type="text" name="body" placeholder="Ask for help to solve programming problems..." rows="3" cols="50" style="resize: none;"></textarea>
-                        <div class="btn gap bg-col53FF45 col6A041D"><i class="fa-solid fa-image"></i> <input type="file" name="image" accept="image/*"></div>
-                        <input class="btn bg-col6A041D colWhite bold-font form-control" type="submit">
-                    </form>
+            <div class="d-flex">
+
+                <div>
+                    <div class="p-3 pl-5 pr-5" id="post-container">
+                        <!-- ..... -->
+                        <div class="p-3 mb-3 bg-white rounded">
+                            <form action="<?php echo e(route('post.create')); ?>" method="POST" enctype="multipart/form-data">
+                                <?php echo csrf_field(); ?>
+                                <textarea class="gap rounded form-control" type="text" name="body" placeholder="Ask for help to solve programming problems..." rows="3" cols="50" style="resize: none;"></textarea>
+                                <div class="btn gap bg-col53FF45 col6A041D"><i class="fa-solid fa-image"></i> <input type="file" name="image" accept="image/*"></div>
+                                <input class="btn bg-col6A041D colWhite bold-font form-control" type="submit">
+                            </form>
+                        </div>
+                    </div>
                 </div>
 
+                <div class="right-nav scrollable">
+                    <hr>
+                    <h5>Followers <spand class="extra-small-font">2.8k</spand></h5>
+                    <div>
+                        <ul>
+                            <li>Princess Ann S. Ajoc</li>
+                            <li>Thelmar Cepriano S. Ajoc</li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <h5>Active Friends<br></h5>
+                    <div>
+                        <ul>
+                            <li>Felipe Jr. S. Gudito</li>
+                            <li>Lodella Mae Fajardo</li>
+                        </ul>
+                    </div>
+                    <hr>
+                </div>
             </div>
             
         </div>
@@ -71,6 +97,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="<?php echo e(asset('resources/js/postprovider.js')); ?>"></script>
     <script src="<?php echo e(asset('resources/js/postinteraction.js')); ?>"></script>
+    <script src="<?php echo e(asset('resources/js/buttonsinteraction.js')); ?>"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

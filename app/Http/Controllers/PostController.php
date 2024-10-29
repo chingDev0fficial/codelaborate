@@ -41,20 +41,66 @@ class PostController extends Controller
         // Retrieve the comments and associated post data
         $comments = Comment::where('post_id', $postId)->with('user')->get();
         $post = Post::find($postId); // Retrieve the post itself
+        $creator = $post->user;
+        $current_user_id = session('id');
 
         return response()->json([
             'comments' => $comments,
-            'post' => $post
+            'post' => $post,
+            'creator' => $creator,
+            'current_user_id' => $current_user_id
         ]);
     }
 
-    public function addComment()
+    public function createComment($postId, Request $request)
     {
-        $post = Post::find(1); // Find the post
+        $post = Post::find($postId); // Find the post
         $comment = new Comment();
-        $comment->body = 'This is a comment.';
+        $comment->body = $request->input('commentBody');
         $comment->user()->associate(auth()->user()); // Associate with the current user
         $post->comments()->save($comment); // Save the comment
+
+        return $this->fetchComments($postId);
+    }
+
+    public function retrievePostData($postId)
+    {
+        $post = Post::find($postId);
+        return response()->json(['postData' => $post]);
+    }
+    
+    public function editPostCaption($postId, Request $request)
+    {
+        $request->validate([
+            'body' => 'required|string',
+        ]);
+
+        $post = Post::findOrFail($postId);
+
+        $post->body = $request->input('body');
+
+        $post->save();
+
+        return response()->json(['postData' => $post]);
+    }
+
+    function editCommentBTN(Request $request, $commentId)
+    {
+        $comment = Comment::findOrFail($commentId);
+        return response()->json(['comment' => $comment]);
+    }
+
+    function editComment(Request $request, $commentId)
+    {
+        $request->validate([
+            'body' => 'required|string'
+        ]);
+
+        $comment = Comment::findOrFail($commentId);
+        $comment->body = $request->input('body');
+        $comment->save();
+
+        return response()->json(['comment' => $comment]);
     }
 }
 
