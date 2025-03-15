@@ -21,9 +21,14 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
-    // public function likes()
-    // {
-    //     return $this->hasMany(Like::class);
-    // }
+    public function hearts()
+    {
+        return $this->hasMany(Heart::class);
+    }
+
+    public function shares()
+    {
+        return $this->hasMany(Share::class);
+    }
 
 }

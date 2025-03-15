@@ -181,3 +181,47 @@
 {
     background-color: #757575;
 }
+
+@media (max-width: 768px) {
+    .big-font-size {
+        font-size: 8vw; /* Adjust font size for smaller screens */
+    }
+
+    .mid-font-size {
+        font-size: 6vw; /* Adjust font size for smaller screens */
+    }
+
+    .small-font {
+        font-size: 4vw; /* Adjust font size for smaller screens */
+    }
+
+    .extra-small-font {
+        font-size: 3vw; /* Adjust font size for smaller screens */
+    }
+
+    .wrap-div {
+        width: 90vw; /* Adjust width for smaller screens */
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .box {
+        width: 80vw; /* Adjust width for smaller screens */
+        margin-bottom: 20px;
+    }
+
+    .horizontal-space {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .img-size-big {
+        width: 80vw; /* Adjust width for smaller screens */
+        height: auto;
+    }
+
+    .my-img {
+        width: 40vw; /* Adjust width for smaller screens */
+        height: auto;
+    }
+}

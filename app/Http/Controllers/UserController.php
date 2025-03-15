@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Follow;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,35 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function fetchUserProfile(Request $request)
+    {
+        try {
+            $user = User::find($request->id);
+            
+            if (!$user) {
+                return response()->json(['error' => 'User not found'], 404);
+            }
+
+            // Get follow status
+            $isFollowing = Follow::where('follower_id', session('id'))
+                                ->where('following_id', $request->id)
+                                ->exists();
+
+            $userData = $user->toArray();
+            $userData['isFollowing'] = (bool) $isFollowing;
+
+            return response()->json($userData);
+        } catch (\Exception $e) {
+            \Log::error('Error in fetchUserProfile: ' . $e->getMessage());
+            return response()->json(['error' => 'Error fetching profile'], 500);
+        }
+    }
+
+    public function userProfile()
+    {
+        return view('profilepage');
+    }
+
     public function signup(Request $request)
     {
         // Validate the form input
@@ -117,6 +147,11 @@ class UserController extends Controller
         return view('home');
     }
 
+    public function message_page()
+    {
+        return view('message');
+    }
+
     public function logout(Request $request)
     {
         Auth::logout(); // Logs the user out
@@ -126,5 +161,48 @@ class UserController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('login');
+    }
+
+    public function follow(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id'
+        ]);
+
+        try {
+            $follower_id = session('id');
+            $following_id = $request->user_id;
+
+            // Check if already following
+            $existingFollow = Follow::where('follower_id', $follower_id)
+                                   ->where('following_id', $following_id)
+                                   ->first();
+
+            if ($existingFollow) {
+                // Unfollow
+                $existingFollow->delete();
+                $isFollowing = false;
+            } else {
+                // Follow
+                Follow::create([
+                    'follower_id' => $follower_id,
+                    'following_id' => $following_id
+                ]);
+                $isFollowing = true;
+            }
+
+            return response()->json([
+                'success' => true,
+                'isFollowing' => $isFollowing,
+                'message' => $isFollowing ? 'Successfully followed user' : 'Successfully unfollowed user'
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Follow error: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Error following user: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

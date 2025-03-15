@@ -59,5 +59,33 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    public function hearts()
+    {
+        return $this->hasMany(Heart::class);
+    }
 
+    public function shares()
+    {
+        return $this->hasMany(Share::class);
+    }
+
+    public function followers()
+    {
+        return $this->hasMany(Follow::class, 'following_id');
+    }
+
+    public function following()
+    {
+        return $this->hasMany(Follow::class, 'follower_id');
+    }
+
+    public function sentMessages()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
 }

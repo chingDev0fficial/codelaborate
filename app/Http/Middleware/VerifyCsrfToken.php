@@ -12,6 +12,19 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        'sendMessage',
+        'getMessages/*'
     ];
+
+    /**
+     * Determine if the request has a valid CSRF token.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function tokensMatch($request)
+    {
+        $token = $request->header('X-CSRF-TOKEN') ?: $request->input('_token');
+        return parent::tokensMatch($request);
+    }
 }

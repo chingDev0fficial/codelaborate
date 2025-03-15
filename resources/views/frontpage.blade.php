@@ -2,22 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="{{ asset('resources/css/frontpage.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/f4d60c73af.js" crossorigin="anonymous"></script>
     <title>SNSU Codelaborate</title>
 </head>
 <body>
-    <nav class="p-3 navbar justify-content-between bg-col6A041D mb-5">
+    <nav class="p-3 navbar navbar-expand-lg justify-content-between bg-col6A041D mb-5">
         <div class="navbar-brand d-flex align-items-center brand">
             <div class="logo center">&lt;/SNSUCL&gt;</div>
             <div>
                 <span class="colF4FF52">SNSU</span> <span class="col53FF45">CodeLaborate</span>
             </div>
         </div>
-        <div>
-            <a class="text-decoration-none bold-font colF5B841" href="{{ route('login') }}">Login</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-decoration-none bold-font colF5B841" href="{{ route('login') }}">Login</a>
+                </li>
+            </ul>
         </div>
     </nav>
 
